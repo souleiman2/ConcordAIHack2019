@@ -72,21 +72,25 @@ def maxMins(data):
     for path in data:
         for point in path:
             for i in range(6):
-                if not (strings[i] == "speed" and point.get(strings[i]) == -1):
+                if not (strings[i] != "speed" and point.get(strings[i]) == -1):
                     vals[i] = [min(vals[i][0], point.get(strings[i])), max(vals[i][1], point.get(strings[i]))]
     return vals
 
 def normalize(data):
     vals = maxMins(data)
+    print(vals)
+    print("")
     strings = ["latitude", "longitude", "speed", "altitude", "h_accuracy", "v_accuracy"]
     ans = []
     for path in range(len(data)):
         ans.append([])
-        for point in range(len(data)):
+        for point in range(len(data[path])):
             ans[path].append([])
             for i in range(6):
                 if not(strings[i] == "speed" and data[path][point].get(strings[i]) == -1):
                     ans[path][point].append((data[path][point].get(strings[i]) - vals[i][0])/(vals[i][1] - vals[i][0]))
+                else:
+                    ans[path][point].append(data[path][point].get(strings[i]))
     return ans
     
 
@@ -101,13 +105,13 @@ wow = {
 wow2 = {
     "latitude" : 1,
     "longitude" : 1,
-    "speed" : 1,
+    "speed" : -1,
     "altitude" : 1,
     "h_accuracy" : 1,
     "v_accuracy" : 1
 }
 wow3 = {
-    "latitude" : 4,
+    "latitude" : -1,
     "longitude" : 4,
     "speed" : 4,
     "altitude" : 4,
@@ -117,9 +121,9 @@ wow3 = {
 
 
 data = [
-     [wow, wow, wow],
-     [wow2, wow2, wow2],
-     [wow3, wow3, wow3]
+     [wow],
+     [wow2],
+     [wow3]
 ]
 ans = normalize(data)
 print(ans)
