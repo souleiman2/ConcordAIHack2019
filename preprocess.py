@@ -29,7 +29,6 @@ with open(data_dir + points_path) as json_file:
     struct = json.loads(text)
     print("data loaded!")
 
-labels = []
 path_dict = {x: [] for x in ids}
 features = struct["features"]
 for i, feature in enumerate(features):
