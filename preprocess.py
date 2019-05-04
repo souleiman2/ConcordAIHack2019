@@ -38,7 +38,7 @@ for i, feature in enumerate(features):
     properties = feature["properties"]
     id_trip = properties["id_trip"]
     if id_trip in ids:
-        path_dict[id_trip].append(properties.values)
+        path_dict[id_trip].append(properties)
 
 print(len(path_dict))
 print(len(labels))
